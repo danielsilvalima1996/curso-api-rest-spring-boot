@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.daniel</groupId>
-	<artifactId>rest-with-spring-boot-and-java</artifactId>
+	<artifactId>rest-with-spring-boot-and-java-session-6</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>rest-with-spring-boot-and-java</name>
 	<properties>

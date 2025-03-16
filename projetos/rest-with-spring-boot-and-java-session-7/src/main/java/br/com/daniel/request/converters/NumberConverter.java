@@ -1,12 +1,12 @@
 package br.com.daniel.request.converters;
 
-import br.com.daniel.exception.UnsupportedMathOperationException;
+import br.com.daniel.exception.ResourceNotFoundException;
 
 public class NumberConverter {
 
     public static Double convertToDouble(String strNumber) {
         if (strNumber == null || strNumber.isEmpty())
-            throw new UnsupportedMathOperationException("Please, set a numeric value");
+            throw new ResourceNotFoundException("Please, set a numeric value");
         String number = strNumber.replaceAll(",", ".");
         return Double.parseDouble(number);
     }

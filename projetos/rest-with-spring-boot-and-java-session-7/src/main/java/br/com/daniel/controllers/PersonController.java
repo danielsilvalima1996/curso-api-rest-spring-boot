@@ -3,7 +3,9 @@ package br.com.daniel.controllers;
 import br.com.daniel.model.Person;
 import br.com.daniel.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,35 +17,36 @@ public class PersonController {
     @Autowired
     private PersonServices service;
 
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Person>> findById() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
     @GetMapping(
             value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable("id") String id) {
-        return service.findById(id);
-    }
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findById() {
-        return service.findAll();
+    public ResponseEntity<Person> findById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person) {
-        return service.create(person);
+    public ResponseEntity<Person> create(@RequestBody Person person) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(person));
     }
 
     @PutMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
-        return service.update(person);
+    public ResponseEntity<Person> update(@RequestBody Person person) {
+        return ResponseEntity.ok(service.update(person));
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteById(@PathVariable("id") String id) {
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
